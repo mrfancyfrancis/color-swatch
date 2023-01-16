@@ -1,0 +1,25 @@
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+frontend/app/node_modules
+frontend/app/package-lock.json
+frontend/app/bower_components
+frontend/app/.idea
+
+### django ###
+backend/.idea
+backend/app/db.sqlite3
+env
+
+.idea
+
+*.sublime*
+
+psd
+thumb
+sketch
+
