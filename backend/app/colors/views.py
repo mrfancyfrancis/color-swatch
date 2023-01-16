@@ -35,3 +35,21 @@ class RenderColorSwatches(APIView):
                                  )
 
         return Response(return_colors, response_status.HTTP_200_OK)
+
+
+    @transaction.atomic()
+    def get(self, request, format=None):
+
+        return_colors = list()
+
+        for i in range(5):
+            color = Color.generate_random_color(Color)
+            param = json.loads(color.input)
+            param.pop('type')
+            color_params = tuple(p for p in param.values())
+            return_colors.append('{color_space_type}{params}'
+                         .format(color_space_type=color.type,
+                                 params=str(color_params).replace("'", ''))
+                                 )
+
+        return Response(return_colors, response_status.HTTP_200_OK)

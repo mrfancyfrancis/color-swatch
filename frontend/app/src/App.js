@@ -9,16 +9,13 @@ import config from './config'
 
 export default function App() {
 
-    const [jsonValue, setJsonValue] = React.useState('');
     const [jsonObject, setJsonObject] = React.useState([]);
 
     const handleSubmitToAPI = async () => {
-        console.log(jsonValue);
         try {
             let res = await axios({
                 url: config().BASE_BACKEND_URL + 'api/colors/get-colors/',
-                method: 'post',
-                data: jsonValue,
+                method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -41,14 +38,13 @@ export default function App() {
             <Grid item xs={6}>
                 <Paper elevation={3}>
                     <TextField
-                        label="JSON"
+                        label="Color Space"
                         multiline
                         fullWidth
+                        editable={false}
                         rows={15}
                         variant="standard"
-                        onChange={(event) => {
-                            setJsonValue(event.target.value);
-                        }}
+                        value={jsonObject.join("\n")}
                     />
                 </Paper>
             </Grid>
@@ -61,7 +57,7 @@ export default function App() {
                         gap: 0.1
                     }}
                 >
-                    {jsonValue.length !== 0 && jsonObject.map((color) => (
+                    {jsonObject.map((color) => (
                     <Paper elevation={1} sx={{
                         bgcolor: color,
                         minHeight: '69px'
@@ -76,7 +72,7 @@ export default function App() {
                     variant="contained"
                     onClick={handleSubmitToAPI}
                 >
-                    Send
+                    Generate
                 </Button>
             </Grid>
         </Grid>
